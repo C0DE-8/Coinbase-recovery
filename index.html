@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, rgba(0, 128, 255, 0.6), rgba(0, 255, 255, 0.4));
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Crypto logos at the top */
+    .crypto-background-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 200px;
+      background-image: 
+        url('https://cryptologos.cc/logos/bitcoin-btc-logo.png'),
+        url('https://cryptologos.cc/logos/ethereum-eth-logo.png'),
+        url('https://cryptologos.cc/logos/ripple-xrp-logo.png'),
+        url('https://cryptologos.cc/logos/dogecoin-doge-logo.png'),
+        url('https://cryptologos.cc/logos/binance-coin-bnb-logo.png'),
+        url('https://cryptologos.cc/logos/litecoin-ltc-logo.png'),
+        url('https://cryptologos.cc/logos/tether-usdt-logo.png');
+      background-position: 
+        5% 10%, 25% 20%, 45% 30%, 65% 40%, 85% 50%, 25% 60%, 45% 70%;
+      background-repeat: no-repeat;
+      background-size: 60px 60px, 60px 60px, 60px 60px, 60px 60px, 60px 60px, 60px 60px, 60px 60px;
+      opacity: 0.1;
+    }
+
+    /* Crypto logos at the bottom */
+    .crypto-background-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 200px;
+      background-image: 
+        url('https://cryptologos.cc/logos/bitcoin-btc-logo.png'),
+        url('https://cryptologos.cc/logos/ethereum-eth-logo.png'),
+        url('https://cryptologos.cc/logos/ripple-xrp-logo.png'),
+        url('https://cryptologos.cc/logos/dogecoin-doge-logo.png'),
+        url('https://cryptologos.cc/logos/binance-coin-bnb-logo.png'),
+        url('https://cryptologos.cc/logos/litecoin-ltc-logo.png'),
+        url('https://cryptologos.cc/logos/tether-usdt-logo.png');
+      background-position: 
+        5% 10%, 25% 20%, 45% 30%, 65% 40%, 85% 50%, 25% 60%, 45% 70%;
+      background-repeat: no-repeat;
+      background-size: 60px 60px, 60px 60px, 60px 60px, 60px 60px, 60px 60px, 60px 60px, 60px 60px;
+      opacity: 0.1;
+    }
+
+    .dashboard {
+      width: 400px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      color: #fff;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 1;
+    }
+
+    h1 {
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .loading-bar-container {
+      margin: 20px 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      height: 25px;
+    }
+
+    .loading-bar {
+      height: 100%;
+      width: 0;
+      background: red; /* Initial color */
+      text-align: center;
+      line-height: 25px;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .recovery-amount {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #fff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="crypto-background-top"></div> <!-- Top Crypto Logos -->
+  <div class="dashboard">
+    <h1>Sam Hawkins Asset Recovery Process</h1>
+    <div class="loading-bar-container">
+      <div class="loading-bar" id="loadingBar">0%</div>
+    </div>
+    <p class="recovery-amount">Recovery Amount: £60,850</p>
+  </div>
+  <div class="crypto-background-bottom"></div> <!-- Bottom Crypto Logos -->
+  <script>
+    const loadingBar = document.getElementById('loadingBar');
+    let progress = 0;
+
+    // Total duration: 45 minutes = 270000 milliseconds
+    const totalDuration = 270000;
+    const interval = totalDuration / 43; // Adjust interval to stop at 43%
+
+    // Function to update color based on progress
+    function updateColor(progress) {
+      if (progress <= 14) {
+        loadingBar.style.background = `linear-gradient(90deg, red ${progress}%, orange ${progress}%)`;
+      } else if (progress <= 28) {
+        loadingBar.style.background = `linear-gradient(90deg, orange ${progress}%, yellow ${progress}%)`;
+      } else if (progress < 43) {
+        loadingBar.style.background = `linear-gradient(90deg, yellow ${progress}%, orange ${progress}%)`;
+      } else {
+        loadingBar.style.background = 'orange'; // Final color is orange
+      }
+    }
+
+    const loadingInterval = setInterval(() => {
+      if (progress < 43) {  // Now it goes to 43%
+        progress++;
+        loadingBar.style.width = progress + '%';
+        loadingBar.textContent = progress + '%';
+        updateColor(progress); // Update the color based on progress
+      } else {
+        clearInterval(loadingInterval);
+        // Show the updated popup after reaching 43%
+        setTimeout(() => {
+          alert(`
+            Payment Received: £5,360
+            Outstanding Balance: £8,960
+            
+            Recovery of Funds:
+            The recovery process is progressing steadily, and we are actively working to recover the remaining assets. We anticipate that the remaining funds will be secured in the coming days. The assets in question have been thoroughly evaluated, and steps are being taken to ensure full recovery. Please note that your outstanding payment is required to complete this recovery. We thank you for your patience during this critical phase.
+          `);
+        }, 500);
+      }
+    }, interval);
+  </script>
+</body>
+</html>
